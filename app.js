@@ -1,4 +1,8 @@
-// Minimal typing test logic for the scaffold
+import { calculateWpm, calculateAccuracy } from './src/metrics.js';
+import { saveResult } from './src/storage.js';
+import { trapFocus } from './src/focus-trap.js';
+
+// Minimal typing test logic for the scaffold (ES module)
 const startBtn = document.getElementById('startBtn');
 const retryBtn = document.getElementById('retryBtn');
 const resRetry = document.getElementById('resRetry');
@@ -28,7 +32,8 @@ let state = {
   timer: null,
   elapsed: 0,
   running: false,
-  errors: 0
+  errors: 0,
+  releaseFocusTrap: null
 };
 
 const passages = {
@@ -67,7 +72,7 @@ function renderTarget(text) {
 function markCurrent(index) {
   const prev = textContainer.querySelector('.char.current');
   if (prev) prev.classList.remove('current');
-  const el = textContainer.querySelector(`.char[data-index=\"${index}\"]`);
+  const el = textContainer.querySelector(`.char[data-index="${index}"]`);
   if (el) el.classList.add('current');
 }
 
@@ -84,6 +89,7 @@ function startTest() {
   results.classList.add('hidden');
   document.getElementById('testArea').classList.remove('hidden');
   retryBtn.disabled = false;
+  // trap focus inside modal only when modal opens; no trap needed here
   startTimer();
 }
 
@@ -96,7 +102,7 @@ function startTimer() {
     state.elapsed = Math.floor((Date.now() - state.startTime) / 1000);
     timeEl.textContent = state.elapsed;
     // auto end for timed mode
-    if (mode === 'time' && state.elapsed >= 30) {
+    if (mode === 'time' && state.elapsed >= total) {
       endTest();
     }
   }, 250);
@@ -110,17 +116,32 @@ function endTest() {
   const typed = input.value || '';
   const correctChars = computeCorrectChars(typed, state.targetText);
   const totalTyped = typed.length || 0;
-  const minutes = Math.max( (state.elapsed || 1) / 60, 1/60 );
-  const wpm = Math.round((correctChars / 5) / minutes);
-  const accuracy = totalTyped === 0 ? 100 : Math.round((correctChars / totalTyped) * 100);
+  const minutes = Math.max((state.elapsed || 1) / 60, 1 / 60);
+  const wpm = calculateWpm(correctChars, state.elapsed || 1);
+  const accuracy = calculateAccuracy(correctChars, totalTyped);
   resWpm.textContent = wpm;
   resAccuracy.textContent = accuracy;
-  resErrors.textContent = (totalTyped - correctChars) < 0 ? 0 : (totalTyped - correctChars);
+  resErrors.textContent = Math.max(0, totalTyped - correctChars);
   resTime.textContent = state.elapsed;
   results.classList.remove('hidden');
   results.setAttribute('aria-hidden', 'false');
   wpmEl.textContent = wpm;
   accuracyEl.textContent = accuracy;
+
+  // persist result
+  try {
+    saveResult({
+      date: new Date().toISOString(),
+      mode: modeSelect.value,
+      wpm,
+      accuracy,
+      time: state.elapsed,
+      errors: Math.max(0, totalTyped - correctChars)
+    });
+  } catch (err) {
+    // ignore storage errors for now
+    console.warn('Could not save result', err);
+  }
 }
 
 function computeCorrectChars(typed, target) {
@@ -137,23 +158,25 @@ input.addEventListener('input', (e) => {
     startTest();
   }
   const typed = input.value;
-  updateHighlight(typed);
+  updateHighlightOptimized(typed);
 });
 
-function updateHighlight(typed) {
-  const spans = textContainer.querySelectorAll('.char');
-  let correctCount = 0;
+function updateHighlightOptimized(typed) {
+  const spans = Array.from(textContainer.querySelectorAll('.char'));
   for (let i = 0; i < spans.length; i++) {
-    const ch = spans[i];
-    ch.classList.remove('correct','incorrect');
+    const el = spans[i];
     const c = typed[i];
-    if (c === undefined) {
-      // not typed yet
-    } else if (c === ch.textContent) {
-      ch.classList.add('correct');
-      correctCount++;
-    } else {
-      ch.classList.add('incorrect');
+    const isCorrect = c !== undefined && c === el.textContent;
+    const isIncorrect = c !== undefined && c !== el.textContent;
+
+    if (isCorrect && !el.classList.contains('correct')) {
+      el.classList.remove('incorrect');
+      el.classList.add('correct');
+    } else if (isIncorrect && !el.classList.contains('incorrect')) {
+      el.classList.remove('correct');
+      el.classList.add('incorrect');
+    } else if (c === undefined && (el.classList.contains('correct') || el.classList.contains('incorrect'))) {
+      el.classList.remove('correct', 'incorrect');
     }
   }
   markCurrent(typed.length);
@@ -173,9 +196,20 @@ resRetry.addEventListener('click', () => {
 
 helpBtn.addEventListener('click', () => {
   helpModal.classList.remove('hidden');
+  const content = helpModal.querySelector('.modal-content');
+  if (content) {
+    state.releaseFocusTrap = trapFocus(content);
+    // focus first focusable
+    const first = content.querySelector('button, [href], input, textarea, select, [tabindex]:not([tabindex="-1"])');
+    if (first) first.focus();
+  }
 });
 closeHelp && closeHelp.addEventListener('click', () => {
   helpModal.classList.add('hidden');
+  if (state.releaseFocusTrap) {
+    state.releaseFocusTrap();
+    state.releaseFocusTrap = null;
+  }
 });
 
 // Warn on unload if test is running
@@ -197,7 +231,6 @@ window.addEventListener('keydown', (e) => {
 
 // Initialize
 (function init() {
-  // render an initial passage so layout is visible
   state.targetText = pickPassage();
   renderTarget(state.targetText);
 })();
