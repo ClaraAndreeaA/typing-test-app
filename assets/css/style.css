@@ -22,40 +22,64 @@ body {
 
 /* Header Styles */
 .header-section {
-    background-color: #fff;
+    background-color: var(--primary-orange);
+    padding: 2rem 1rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
 }
 
 .app-title {
     font-family: 'Alegreya', serif;
     font-size: 2.5rem;
     font-weight: 700;
-    color: var(--primary-orange);
+    color: #fff;
+    margin: 0;
 }
 
 .btn-instructions {
-    background-color: var(--primary-orange);
-    color: #fff;
+    background-color: #fff;
+    color: var(--dark-text);
     border: none;
     border-radius: 5px;
-    padding: 0.5rem 1rem;
+    padding: 0.75rem 1.5rem;
     font-family: 'Nunito', sans-serif;
     font-weight: 600;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
+    font-size: 1rem;
 }
 
 .btn-instructions:hover {
-    background-color: #ff7300;
-    color: #fff;
-}
-
-.btn-instructions i {
-    margin-right: 0.5rem;
+    background-color: #f0f0f0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Main Content */
 .main-content {
-    min-height: calc(100vh - 80px);
+    min-height: calc(100vh - 120px);
+    padding: 3rem 1rem;
+}
+
+.container {
+    max-width: 1200px;
+}
+
+/* Instructions Text */
+.instructions-text {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    color: var(--dark-text);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
 }
 
 /* Difficulty Section */
@@ -69,12 +93,13 @@ body {
     font-family: 'Nunito', sans-serif;
     font-weight: 600;
     color: var(--dark-text);
+    white-space: nowrap;
 }
 
 .form-select {
     border: 1px solid var(--border-color);
-    border-left: none;
     font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
 }
 
 .form-select:focus {
@@ -89,8 +114,10 @@ body {
 
 .sample-text-box {
     background-color: #fff;
-    border: 2px solid var(--border-color);
-    min-height: 150px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 2rem;
+    min-height: 100px;
     display: flex;
     align-items: center;
 }
@@ -100,6 +127,7 @@ body {
     font-size: 1.1rem;
     line-height: 1.8;
     color: var(--dark-text);
+    margin: 0;
 }
 
 /* User Input Section */
@@ -113,6 +141,7 @@ body {
     font-family: 'Nunito', sans-serif;
     padding: 1rem;
     font-size: 1rem;
+    resize: vertical;
 }
 
 .form-control:focus {
@@ -120,58 +149,38 @@ body {
     box-shadow: 0 0 0 0.2rem rgba(255, 132, 0, 0.25);
 }
 
+.form-control::placeholder {
+    color: #999;
+    font-style: italic;
+}
+
 /* Control Buttons */
 .controls-section {
     margin-bottom: 2rem;
-    flex-wrap: wrap;
+    gap: 1rem;
 }
 
-.btn {
-    border-radius: 5px;
+.btn-outline-orange {
+    border: 2px solid var(--primary-orange);
+    color: var(--primary-orange);
+    background-color: transparent;
     font-weight: 600;
     font-family: 'Nunito', sans-serif;
     padding: 0.75rem 1.5rem;
     font-size: 1rem;
+    border-radius: 5px;
     transition: all 0.3s ease;
 }
 
-.btn-primary {
+.btn-outline-orange:hover {
     background-color: var(--primary-orange);
-    border: none;
-}
-
-.btn-primary:hover {
-    background-color: #ff7300;
+    color: #fff;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(255, 132, 0, 0.3);
 }
 
-.btn-danger {
-    background-color: #dc3545;
-    border: none;
-}
-
-.btn-danger:hover {
-    background-color: #c82333;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
-}
-
-.btn-warning {
-    background-color: #ffc107;
-    border: none;
-    color: #000;
-}
-
-.btn-warning:hover {
-    background-color: #ffb300;
-    color: #000;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(255, 193, 7, 0.3);
-}
-
-.btn i {
-    margin-right: 0.5rem;
+.btn-outline-orange:active {
+    transform: translateY(0);
 }
 
 /* Results Section */
@@ -181,79 +190,86 @@ body {
 
 .results-card {
     background-color: #fff;
-    border: 2px solid var(--border-color);
+    border: 3px solid var(--primary-orange);
+    border-radius: 10px;
+    padding: 2rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .results-title {
     font-family: 'Alegreya', serif;
     font-size: 1.8rem;
-    color: var(--primary-orange);
+    color: var(--dark-text);
     font-weight: 700;
-    border-bottom: 2px solid var(--primary-orange);
-    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
 }
 
 .result-item {
-    padding: 1.5rem 0;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.result-item:last-child {
-    border-bottom: none;
+    padding: 1rem 0;
+    text-align: center;
 }
 
 .result-label {
-    font-family: 'Alegreya', serif;
-    font-size: 1.2rem;
-    color: #666;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.1rem;
+    color: var(--dark-text);
     font-weight: 600;
-    margin-bottom: 0.5rem;
+    margin: 0;
 }
 
-.result-value {
-    font-family: 'Nunito', sans-serif;
-    font-size: 2rem;
-    font-weight: 700;
+.result-label span {
     color: var(--primary-orange);
-    margin-bottom: 0;
+    font-weight: 700;
 }
 
 /* Responsive Design */
-@media (max-width: 767px) {
+@media (max-width: 991px) {
+    .header-content {
+        gap: 1rem;
+    }
+
+    .app-title {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-section {
+        padding: 1.5rem 1rem;
+    }
+
+    .header-content {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
     .app-title {
         font-size: 1.8rem;
     }
 
     .btn-instructions {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.9rem;
+        width: 100%;
+    }
+
+    .main-content {
+        padding: 2rem 1rem;
+    }
+
+    .controls-section {
+        flex-direction: column;
+    }
+
+    .btn-outline-orange {
+        width: 100%;
     }
 
     .sample-text {
         font-size: 1rem;
     }
 
-    .form-control {
-        font-size: 1rem;
-    }
-
-    .controls-section {
-        gap: 0.5rem;
-    }
-
-    .btn {
-        padding: 0.5rem 1rem;
-        font-size: 0.9rem;
-        flex: 1;
-    }
-
-    .result-value {
-        font-size: 1.5rem;
-    }
-
-    .results-title {
-        font-size: 1.5rem;
+    .results-card {
+        margin-top: 2rem;
     }
 }
 
@@ -266,28 +282,57 @@ body {
         padding: 1rem;
     }
 
-    .btn-instructions i {
-        margin-right: 0.25rem;
+    .main-content {
+        padding: 1.5rem 0.5rem;
+    }
+
+    .difficulty-section {
+        margin-bottom: 1.5rem;
+    }
+
+    .input-group-text {
+        font-size: 0.9rem;
+        padding: 0.5rem 0.75rem;
+    }
+
+    .form-select {
+        font-size: 0.9rem;
     }
 
     .sample-text-box {
-        min-height: 120px;
+        padding: 1.5rem;
+        min-height: 80px;
+    }
+
+    .sample-text {
+        font-size: 0.95rem;
     }
 
     .form-control {
+        font-size: 0.95rem;
         padding: 0.75rem;
     }
 
-    .controls-section {
-        flex-direction: column;
+    .btn-outline-orange {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.95rem;
     }
 
-    .btn {
-        width: 100%;
+    .results-card {
+        padding: 1.5rem;
+        border-radius: 8px;
     }
 
-    .container-fluid {
-        padding-left: 1rem;
-        padding-right: 1rem;
+    .results-title {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .result-item {
+        padding: 0.75rem 0;
+    }
+
+    .result-label {
+        font-size: 1rem;
     }
 }
