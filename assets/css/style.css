@@ -1,0 +1,293 @@
+@import url('https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+:root {
+    --primary-orange: #ff8400;
+    --dark-text: #333;
+    --light-bg: #f8f9fa;
+    --border-color: #ddd;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color: var(--light-bg);
+    color: var(--dark-text);
+    line-height: 1.6;
+}
+
+/* Header Styles */
+.header-section {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.app-title {
+    font-family: 'Alegreya', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-orange);
+}
+
+.btn-instructions {
+    background-color: var(--primary-orange);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.btn-instructions:hover {
+    background-color: #ff7300;
+    color: #fff;
+}
+
+.btn-instructions i {
+    margin-right: 0.5rem;
+}
+
+/* Main Content */
+.main-content {
+    min-height: calc(100vh - 80px);
+}
+
+/* Difficulty Section */
+.difficulty-section {
+    margin-bottom: 2rem;
+}
+
+.input-group-text {
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    color: var(--dark-text);
+}
+
+.form-select {
+    border: 1px solid var(--border-color);
+    border-left: none;
+    font-family: 'Nunito', sans-serif;
+}
+
+.form-select:focus {
+    border-color: var(--primary-orange);
+    box-shadow: 0 0 0 0.2rem rgba(255, 132, 0, 0.25);
+}
+
+/* Sample Text Section */
+.sample-text-section {
+    margin-bottom: 2rem;
+}
+
+.sample-text-box {
+    background-color: #fff;
+    border: 2px solid var(--border-color);
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+}
+
+.sample-text {
+    font-family: 'Alegreya', serif;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--dark-text);
+}
+
+/* User Input Section */
+.user-input-section {
+    margin-bottom: 2rem;
+}
+
+.form-control {
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-family: 'Nunito', sans-serif;
+    padding: 1rem;
+    font-size: 1rem;
+}
+
+.form-control:focus {
+    border-color: var(--primary-orange);
+    box-shadow: 0 0 0 0.2rem rgba(255, 132, 0, 0.25);
+}
+
+/* Control Buttons */
+.controls-section {
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.btn {
+    border-radius: 5px;
+    font-weight: 600;
+    font-family: 'Nunito', sans-serif;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: var(--primary-orange);
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #ff7300;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 132, 0, 0.3);
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    border: none;
+    color: #000;
+}
+
+.btn-warning:hover {
+    background-color: #ffb300;
+    color: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 193, 7, 0.3);
+}
+
+.btn i {
+    margin-right: 0.5rem;
+}
+
+/* Results Section */
+.results-section {
+    height: 100%;
+}
+
+.results-card {
+    background-color: #fff;
+    border: 2px solid var(--border-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.results-title {
+    font-family: 'Alegreya', serif;
+    font-size: 1.8rem;
+    color: var(--primary-orange);
+    font-weight: 700;
+    border-bottom: 2px solid var(--primary-orange);
+    padding-bottom: 1rem;
+}
+
+.result-item {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.result-item:last-child {
+    border-bottom: none;
+}
+
+.result-label {
+    font-family: 'Alegreya', serif;
+    font-size: 1.2rem;
+    color: #666;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.result-value {
+    font-family: 'Nunito', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-orange);
+    margin-bottom: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 767px) {
+    .app-title {
+        font-size: 1.8rem;
+    }
+
+    .btn-instructions {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .sample-text {
+        font-size: 1rem;
+    }
+
+    .form-control {
+        font-size: 1rem;
+    }
+
+    .controls-section {
+        gap: 0.5rem;
+    }
+
+    .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+        flex: 1;
+    }
+
+    .result-value {
+        font-size: 1.5rem;
+    }
+
+    .results-title {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .app-title {
+        font-size: 1.5rem;
+    }
+
+    .header-section {
+        padding: 1rem;
+    }
+
+    .btn-instructions i {
+        margin-right: 0.25rem;
+    }
+
+    .sample-text-box {
+        min-height: 120px;
+    }
+
+    .form-control {
+        padding: 0.75rem;
+    }
+
+    .controls-section {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .container-fluid {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
