@@ -1,0 +1,81 @@
+:root{
+  --bg:#f7f7fb;
+  --card:#fff;
+  --accent:#2b6cb0;
+  --error:#e53e3e;
+  --success:#38a169;
+  --muted:#666;
+  --max-width:900px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:#111;
+  line-height:1.4;
+  padding:1rem;
+  display:flex;
+  justify-content:center;
+}
+
+.container{
+  max-width:var(--max-width);
+  width:100%;
+  background:var(--card);
+  padding:1.25rem;
+  border-radius:10px;
+  box-shadow:0 6px 20px rgba(10,10,20,.06);
+}
+
+header h1{margin:.25rem 0}
+.lead{color:var(--muted); margin-top:0}
+
+.controls{margin:1rem 0}
+.options{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+.options label{font-size:.9rem;color:var(--muted)}
+.options select{margin-left:.4rem;padding:.25rem}
+.btn{background:var(--accent);color:#fff;border:0;padding:.5rem .75rem;border-radius:6px;cursor:pointer}
+.btn.subtle{background:transparent;color:var(--accent);border:1px solid rgba(43,108,176,.12)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+
+.test-area{margin-top:1rem}
+.text-container{
+  min-height:120px;
+  background:#f2f6fb;
+  padding:1rem;
+  border-radius:8px;
+  border:1px solid rgba(10,10,20,.04);
+  white-space:pre-wrap;
+  font-size:1.05rem;
+  line-height:1.6;
+  margin-bottom:.75rem;
+  outline: none;
+}
+
+.input-row textarea{
+  width:100%;
+  padding:.6rem;
+  font-size:1rem;
+  border-radius:8px;
+  border:1px solid rgba(10,10,20,.08);
+  resize:vertical;
+}
+
+.status-row{display:flex;gap:1rem;margin-top:.5rem;color:var(--muted);font-weight:600}
+.results{margin-top:1rem;padding:.75rem;background:#fff;border-radius:8px;border:1px solid rgba(10,10,20,.03)}
+.hidden{display:none}
+
+/* Highlighting */
+.char.correct{color:var(--success)}
+.char.incorrect{color:var(--error);text-decoration:underline}
+.char.current{background:rgba(43,108,176,.08);border-bottom:2px solid var(--accent)}
+
+/* Modal */
+.modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.35)}
+.modal-content{background:var(--card);padding:1rem;border-radius:8px;max-width:560px}
+@media (max-width:600px){
+  .options{flex-direction:column;align-items:stretch}
+  .text-container{font-size:1rem}
+}

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Typing Test — Starter</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1>Typing Test</h1>
+      <p class="lead">Improve your typing speed — start a quick test.</p>
+    </header>
+
+    <section class="controls">
+      <div class="options">
+        <label>
+          Mode:
+          <select id="mode">
+            <option value="time">Timed (30s)</option>
+            <option value="words">Words (50)</option>
+          </select>
+        </label>
+
+        <label>
+          Difficulty:
+          <select id="difficulty">
+            <option value="easy">Easy</option>
+            <option value="medium" selected>Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </label>
+
+        <button id="startBtn" class="btn">Start Test</button>
+        <button id="retryBtn" class="btn subtle" disabled>Retry</button>
+        <button id="helpBtn" class="btn subtle">Help</button>
+      </div>
+    </section>
+
+    <section id="testArea" class="test-area" aria-live="polite">
+      <div id="textContainer" class="text-container" tabindex="0"></div>
+
+      <div class="input-row">
+        <textarea id="input" placeholder="Start typing here..." aria-label="Typing input" rows="4"></textarea>
+      </div>
+
+      <div class="status-row">
+        <div>Time: <span id="time">0</span>s</div>
+        <div>WPM: <span id="wpm">0</span></div>
+        <div>Accuracy: <span id="accuracy">100</span>%</div>
+      </div>
+    </section>
+
+    <section id="results" class="results hidden" aria-hidden="true">
+      <h2>Results</h2>
+      <div class="metrics">
+        <div>WPM: <strong id="resWpm">0</strong></div>
+        <div>Accuracy: <strong id="resAccuracy">0</strong>%</div>
+        <div>Errors: <strong id="resErrors">0</strong></div>
+        <div>Time: <strong id="resTime">0</strong>s</div>
+      </div>
+      <div class="results-actions">
+        <button id="resRetry" class="btn">Retry</button>
+      </div>
+    </section>
+
+    <footer>
+      <small>Starter scaffold — HTML, CSS, JavaScript (vanilla)</small>
+    </footer>
+  </main>
+
+  <div id="helpModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+    <div class="modal-content">
+      <h2 id="helpTitle">How to take the test</h2>
+      <p>Select a mode and difficulty, then click Start Test. For timed mode the timer starts immediately. WPM is calculated using 5 characters per word. Accuracy is (correct characters / total typed) * 100.</p>
+      <button id="closeHelp" class="btn">Close</button>
+    </div>
+  </div>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
